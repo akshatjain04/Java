@@ -18,25 +18,27 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @MockBean(UserRepository.class)
 class AuthIntegrationTest extends IntegrationTest {
-    @Autowired
-    UserRepository userRepository;
 
-    @ParameterizedTest
-    @MethodSource("parameters")
-    void testPostShouldReturnHttpStatus(AuthDto authDto, HttpStatusCode statusCode) throws Exception {
-        Mockito.when(userRepository.findByUsername(Data.user.getUsername())).thenReturn(Optional.of(Data.user));
-        post("/auth", authDto).andExpectAll(MockMvcResultMatchers.status().is(statusCode.value()));
-    }
+	@Autowired
+	UserRepository userRepository;
 
-    private static Stream<Arguments> parameters() {
-        return Stream.of(
-            Arguments.arguments(null, HttpStatus.BAD_REQUEST),
-            Arguments.arguments(new AuthDto(null, null), HttpStatus.BAD_REQUEST),
-            Arguments.arguments(new AuthDto("", ""), HttpStatus.BAD_REQUEST),
-            Arguments.arguments(new AuthDto(UUID.randomUUID().toString(), UUID.randomUUID().toString()), HttpStatus.UNAUTHORIZED),
-            Arguments.arguments(new AuthDto(Data.user.getUsername(), UUID.randomUUID().toString()), HttpStatus.UNAUTHORIZED),
-            Arguments.arguments(new AuthDto(UUID.randomUUID().toString(), Data.password), HttpStatus.UNAUTHORIZED),
-            Arguments.arguments(new AuthDto(Data.user.getUsername(), Data.password), HttpStatus.OK)
-        );
-    }
+	@ParameterizedTest
+	@MethodSource("parameters")
+	void testPostShouldReturnHttpStatus(AuthDto authDto, HttpStatusCode statusCode) throws Exception {
+		Mockito.when(userRepository.findByUsername(Data.user.getUsername())).thenReturn(Optional.of(Data.user));
+		post("/auth", authDto).andExpectAll(MockMvcResultMatchers.status().is(statusCode.value()));
+	}
+
+	private static Stream<Arguments> parameters() {
+		return Stream.of(Arguments.arguments(null, HttpStatus.BAD_REQUEST),
+				Arguments.arguments(new AuthDto(null, null), HttpStatus.BAD_REQUEST),
+				Arguments.arguments(new AuthDto("", ""), HttpStatus.BAD_REQUEST),
+				Arguments.arguments(new AuthDto(UUID.randomUUID().toString(), UUID.randomUUID().toString()),
+						HttpStatus.UNAUTHORIZED),
+				Arguments.arguments(new AuthDto(Data.user.getUsername(), UUID.randomUUID().toString()),
+						HttpStatus.UNAUTHORIZED),
+				Arguments.arguments(new AuthDto(UUID.randomUUID().toString(), Data.password), HttpStatus.UNAUTHORIZED),
+				Arguments.arguments(new AuthDto(Data.user.getUsername(), Data.password), HttpStatus.OK));
+	}
+
 }
