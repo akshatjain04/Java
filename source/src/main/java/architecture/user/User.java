@@ -19,24 +19,26 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @Document
 public class User {
-    @Id
-    private UUID id;
 
-    @NotBlank
-    private String name;
+	@Id
+	private UUID id;
 
-    @NotBlank
-    @Email
-    @Indexed(unique = true)
-    private String email;
+	@NotBlank
+	private String name;
 
-    @NotBlank
-    @Indexed(unique = true)
-    private String username;
+	@NotBlank
+	@Email
+	@Indexed(unique = true)
+	private String email;
 
-    @NotBlank
-    private String password;
+	@NotBlank
+	@Indexed(unique = true)
+	private String username;
 
-    @NotBlank
-    public List<Authority> authorities;
+	@NotBlank
+	private String password;
+
+	@NotBlank
+	public List<Authority> authorities;
+
 }

@@ -5,7 +5,11 @@ import lombok.Data;
 
 @Data
 public class UserDto {
-    private UUID id;
-    private String name;
-    private String email;
+
+	private UUID id;
+
+	private String name;
+
+	private String email;
+
 }
