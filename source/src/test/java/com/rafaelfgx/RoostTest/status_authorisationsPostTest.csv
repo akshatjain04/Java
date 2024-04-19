@@ -1,0 +1,11 @@
+Authorization^|^AdditionalCSVvaluInfo^|^x-fapi-customer-ip-address^|^x-fapi-auth-date^|^x-fapi-interaction-id^|^x-idempotency-key^|^merchantRequestIdentification^|^creditorAccount^|^bankCode^|^accountIdentification^|^currency^|^accountSchemeName^|^accountSubType^|^statusCode
+Bearer token12345^|^LbGpjj8KaH5wrEfg^|^192.168.1.1^|^2023-03-21^|^interaction-id-123^|^idempotency-key-001^|^merchant-req-001^|^account-123456^|^001^|^accID00123^|^USD^|^BBAN^|^Current Account^|^201
+Bearer token67890^|^LbGpjj8KaH5wrEfg^|^192.168.1.2^|^2023-03-22^|^interaction-id-456^|^idempotency-key-002^|^merchant-req-002^|^account-123457^|^002^|^accID00124^|^EUR^|^BBAN^|^Savings Account^|^400
+Bearer token24680^|^LbGpjj8KaH5wrEfg^|^192.168.1.3^|^2023-03-23^|^interaction-id-789^|^idempotency-key-003^|^merchant-req-003^|^account-123458^|^003^|^accID00125^|^GBP^|^BBAN^|^Student Account^|^401
+Bearer token13579^|^LbGpjj8KaH5wrEfg^|^192.168.1.4^|^2023-03-24^|^interaction-id-012^|^idempotency-key-004^|^merchant-req-004^|^account-123459^|^004^|^accID00126^|^JPY^|^BBAN^|^CACC^|^403
+Bearer token98765^|^LbGpjj8KaH5wrEfg^|^192.168.1.5^|^2023-03-25^|^interaction-id-345^|^idempotency-key-005^|^merchant-req-005^|^account-123460^|^005^|^accID00127^|^AUD^|^BBAN^|^CARD^|^404
+Bearer token54321^|^LbGpjj8KaH5wrEfg^|^192.168.1.6^|^2023-03-26^|^interaction-id-678^|^idempotency-key-006^|^merchant-req-006^|^account-123461^|^006^|^accID00128^|^CHF^|^BBAN^|^DDA^|^405
+Bearer token11223^|^LbGpjj8KaH5wrEfg^|^192.168.1.7^|^2023-03-27^|^interaction-id-901^|^idempotency-key-007^|^merchant-req-007^|^account-123462^|^007^|^accID00129^|^CNY^|^BBAN^|^CDA^|^406
+Bearer token33445^|^LbGpjj8KaH5wrEfg^|^192.168.1.8^|^2023-03-28^|^interaction-id-234^|^idempotency-key-008^|^merchant-req-008^|^account-123463^|^008^|^accID00130^|^INR^|^BBAN^|^ILA^|^415
+Bearer token55667^|^LbGpjj8KaH5wrEfg^|^192.168.1.9^|^2023-03-29^|^interaction-id-567^|^idempotency-key-009^|^merchant-req-009^|^account-123464^|^009^|^accID00131^|^RUB^|^BBAN^|^CCA^|^500
+Bearer token77889^|^LbGpjj8KaH5wrEfg^|^192.168.1.10^|^2023-03-30^|^interaction-id-890^|^idempotency-key-010^|^merchant-req-010^|^account-123465^|^010^|^accID00132^|^BRL^|^BBAN^|^OTH^|^201
