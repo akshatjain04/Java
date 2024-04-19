@@ -11,4 +11,5 @@ import java.lang.annotation.Target;
 @BaseApiResponses
 @ApiResponse(responseCode = "200")
 public @interface GetApiResponses {
+
 }

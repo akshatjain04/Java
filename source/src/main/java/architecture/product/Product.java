@@ -15,12 +15,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @Document
 public class Product {
-    @Id
-    private UUID id;
 
-    @NotBlank
-    private String description;
+	@Id
+	private UUID id;
 
-    @Min(0L)
-    private BigDecimal price;
+	@NotBlank
+	private String description;
+
+	@Min(0L)
+	private BigDecimal price;
+
 }
