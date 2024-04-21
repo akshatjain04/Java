@@ -7,11 +7,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(classes = { CategoryService.class, CategoryCacheService.class, CategoryRepository.class })
 class CategoryServiceTest {
-    @Autowired
-    CategoryService categoryService;
 
-    @Test
-    void testList() {
-        Assertions.assertDoesNotThrow(() -> categoryService.list());
-    }
+	@Autowired
+	CategoryService categoryService;
+
+	@Test
+	void testList() {
+		Assertions.assertDoesNotThrow(() -> categoryService.list());
+	}
+
 }

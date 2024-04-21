@@ -20,16 +20,23 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class AuthFilter extends OncePerRequestFilter {
-    private final JwtService jwtService;
 
-    @Override
-    protected void doFilterInternal(final HttpServletRequest request, final @Nonnull HttpServletResponse response, final @Nonnull FilterChain filterChain) throws ServletException, IOException {
-        final var jwt = StringUtils.removeStart(StringUtils.defaultString(request.getHeader(HttpHeaders.AUTHORIZATION)), "Bearer").trim();
+	private final JwtService jwtService;
 
-        if (jwtService.verify(jwt)) {
-            SecurityContextHolder.getContext().setAuthentication(UsernamePasswordAuthenticationToken.authenticated(jwtService.getSubject(jwt), null, jwtService.getAuthorities(jwt)));
-        }
+	@Override
+	protected void doFilterInternal(final HttpServletRequest request, final @Nonnull HttpServletResponse response,
+			final @Nonnull FilterChain filterChain) throws ServletException, IOException {
+		final var jwt = StringUtils
+			.removeStart(StringUtils.defaultString(request.getHeader(HttpHeaders.AUTHORIZATION)), "Bearer")
+			.trim();
 
-        filterChain.doFilter(request, response);
-    }
+		if (jwtService.verify(jwt)) {
+			SecurityContextHolder.getContext()
+				.setAuthentication(UsernamePasswordAuthenticationToken.authenticated(jwtService.getSubject(jwt), null,
+						jwtService.getAuthorities(jwt)));
+		}
+
+		filterChain.doFilter(request, response);
+	}
+
 }
