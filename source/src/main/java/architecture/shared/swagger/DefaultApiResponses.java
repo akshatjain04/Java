@@ -11,10 +11,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 @BaseApiResponses
-@ApiResponses({
-    @ApiResponse(responseCode = "200", content = @Content),
-    @ApiResponse(responseCode = "202", content = @Content),
-    @ApiResponse(responseCode = "204", content = @Content)
-})
+@ApiResponses({ @ApiResponse(responseCode = "200", content = @Content),
+		@ApiResponse(responseCode = "202", content = @Content),
+		@ApiResponse(responseCode = "204", content = @Content) })
 public @interface DefaultApiResponses {
+
 }

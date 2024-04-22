@@ -6,7 +6,9 @@ import lombok.Data;
 @MappedSuperclass
 @Data
 public abstract class BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+
 }
