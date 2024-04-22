@@ -6,9 +6,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MessageService {
-    public String get(final String message, String... args) {
-        var source = new ResourceBundleMessageSource();
-        source.setBasename("messages");
-        return source.getMessage(message, args, message, LocaleContextHolder.getLocale());
-    }
+
+	public String get(final String message, String... args) {
+		var source = new ResourceBundleMessageSource();
+		source.setBasename("messages");
+		return source.getMessage(message, args, message, LocaleContextHolder.getLocale());
+	}
+
 }

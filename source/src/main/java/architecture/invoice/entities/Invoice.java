@@ -14,18 +14,20 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 public class Invoice extends BaseEntity {
-    @NotNull
-    @Size(min = 1, max = 50)
-    @EqualsAndHashCode.Include
-    private String number;
 
-    @NotNull
-    private LocalDateTime dateTime;
+	@NotNull
+	@Size(min = 1, max = 50)
+	@EqualsAndHashCode.Include
+	private String number;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private InvoiceStatus status;
+	@NotNull
+	private LocalDateTime dateTime;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<InvoiceItem> items;
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private InvoiceStatus status;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<InvoiceItem> items;
+
 }

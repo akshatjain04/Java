@@ -11,18 +11,23 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class AuthService {
-    private final PasswordEncoder passwordEncoder;
-    private final JwtService jwtService;
-    private final MessageService messageService;
-    private final UserRepository userRepository;
 
-    public String auth(final AuthDto dto) {
-        final var user = userRepository.findByUsername(dto.username());
+	private final PasswordEncoder passwordEncoder;
 
-        if (user.isEmpty() || !passwordEncoder.matches(dto.password(), user.get().getPassword())) {
-            throw new ApplicationException(HttpStatus.UNAUTHORIZED, messageService.get("auth.unauthorized"));
-        }
+	private final JwtService jwtService;
 
-        return jwtService.create(user.get());
-    }
+	private final MessageService messageService;
+
+	private final UserRepository userRepository;
+
+	public String auth(final AuthDto dto) {
+		final var user = userRepository.findByUsername(dto.username());
+
+		if (user.isEmpty() || !passwordEncoder.matches(dto.password(), user.get().getPassword())) {
+			throw new ApplicationException(HttpStatus.UNAUTHORIZED, messageService.get("auth.unauthorized"));
+		}
+
+		return jwtService.create(user.get());
+	}
+
 }
