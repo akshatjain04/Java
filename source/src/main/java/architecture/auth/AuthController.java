@@ -17,13 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-    private final AuthService authService;
 
-    @Operation(summary = "Auth")
-    @PostApiResponses
-    @PostMapping
-    @ResponseStatus(HttpStatus.OK)
-    public String auth(@RequestBody @Valid final AuthDto dto) {
-        return authService.auth(dto);
-    }
+	private final AuthService authService;
+
+	@Operation(summary = "Auth")
+	@PostApiResponses
+	@PostMapping
+	@ResponseStatus(HttpStatus.OK)
+	public String auth(@RequestBody @Valid final AuthDto dto) {
+		return authService.auth(dto);
+	}
+
 }

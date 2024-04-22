@@ -31,73 +31,80 @@ import java.util.UUID;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public abstract class IntegrationTest {
-    @ServiceConnection
-    static final PostgreSQLContainer<?> postgre = PostgreTest.postgre;
 
-    @ServiceConnection
-    static final MongoDBContainer mongo = MongoTest.mongo;
+	@ServiceConnection
+	static final PostgreSQLContainer<?> postgre = PostgreTest.postgre;
 
-    @Container
-    static final LocalStackContainer localstack = LocalStackTest.localstack;
+	@ServiceConnection
+	static final MongoDBContainer mongo = MongoTest.mongo;
 
-    @Autowired
-    protected MongoTemplate mongoTemplate;
+	@Container
+	static final LocalStackContainer localstack = LocalStackTest.localstack;
 
-    @Autowired
-    MockMvc mockMvc;
+	@Autowired
+	protected MongoTemplate mongoTemplate;
 
-    @MockBean
-    JwtService jwtService;
+	@Autowired
+	MockMvc mockMvc;
 
-    @Autowired
-    protected MapperService mapperService;
+	@MockBean
+	JwtService jwtService;
 
-    @DynamicPropertySource
-    static void overrideConfiguration(DynamicPropertyRegistry registry) {
-        LocalStackTest.registry(localstack, registry);
-    }
+	@Autowired
+	protected MapperService mapperService;
 
-    @BeforeAll
-    static void beforeAll() {
-        PostgreTest.beforeAll();
-        MongoTest.beforeAll();
-        LocalStackTest.beforeAll();
-    }
+	@DynamicPropertySource
+	static void overrideConfiguration(DynamicPropertyRegistry registry) {
+		LocalStackTest.registry(localstack, registry);
+	}
 
-    @BeforeEach
-    void beforeEach() {
-        Mockito.when(jwtService.verify("")).thenReturn(true);
-        Mockito.when(jwtService.getSubject("")).thenReturn(UUID.randomUUID().toString());
-        Mockito.when(jwtService.getAuthorities("")).thenReturn(AuthorityUtils.createAuthorityList(Authority.ADMINISTRATOR.toString()));
-        mongoTemplate.getDb().drop();
-    }
+	@BeforeAll
+	static void beforeAll() {
+		PostgreTest.beforeAll();
+		MongoTest.beforeAll();
+		LocalStackTest.beforeAll();
+	}
 
-    protected ResultActions get(String uri) throws Exception {
-        return perform(HttpMethod.GET, uri, null);
-    }
+	@BeforeEach
+	void beforeEach() {
+		Mockito.when(jwtService.verify("")).thenReturn(true);
+		Mockito.when(jwtService.getSubject("")).thenReturn(UUID.randomUUID().toString());
+		Mockito.when(jwtService.getAuthorities(""))
+			.thenReturn(AuthorityUtils.createAuthorityList(Authority.ADMINISTRATOR.toString()));
+		mongoTemplate.getDb().drop();
+	}
 
-    protected ResultActions post(String uri, Object body) throws Exception {
-        return perform(HttpMethod.POST, uri, body);
-    }
+	protected ResultActions get(String uri) throws Exception {
+		return perform(HttpMethod.GET, uri, null);
+	}
 
-    protected ResultActions put(String uri, Object body) throws Exception {
-        return perform(HttpMethod.PUT, uri, body);
-    }
+	protected ResultActions post(String uri, Object body) throws Exception {
+		return perform(HttpMethod.POST, uri, body);
+	}
 
-    protected ResultActions patch(String uri) throws Exception {
-        return perform(HttpMethod.PATCH, uri, null);
-    }
+	protected ResultActions put(String uri, Object body) throws Exception {
+		return perform(HttpMethod.PUT, uri, body);
+	}
 
-    protected ResultActions delete(String uri) throws Exception {
-        return perform(HttpMethod.DELETE, uri, null);
-    }
+	protected ResultActions patch(String uri) throws Exception {
+		return perform(HttpMethod.PATCH, uri, null);
+	}
 
-    protected ResultActions multipart(String uri, MockMultipartFile file) throws Exception {
-        return mockMvc.perform(MockMvcRequestBuilders.multipart(uri).file(file));
-    }
+	protected ResultActions delete(String uri) throws Exception {
+		return perform(HttpMethod.DELETE, uri, null);
+	}
 
-    ResultActions perform(HttpMethod method, String uri, Object body) throws Exception {
-        final var builder = MockMvcRequestBuilders.request(method, uri).contentType(MediaType.APPLICATION_JSON).content(mapperService.json(body));
-        return mockMvc.perform(builder).andDo(result -> System.out.printf(" Uri: %s%n Method: %s%n Request: %s%n Response: %s%n%n", uri, method, body, result.getResponse().getContentAsString()));
-    }
+	protected ResultActions multipart(String uri, MockMultipartFile file) throws Exception {
+		return mockMvc.perform(MockMvcRequestBuilders.multipart(uri).file(file));
+	}
+
+	ResultActions perform(HttpMethod method, String uri, Object body) throws Exception {
+		final var builder = MockMvcRequestBuilders.request(method, uri)
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(mapperService.json(body));
+		return mockMvc.perform(builder)
+			.andDo(result -> System.out.printf(" Uri: %s%n Method: %s%n Request: %s%n Response: %s%n%n", uri, method,
+					body, result.getResponse().getContentAsString()));
+	}
+
 }
