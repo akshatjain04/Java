@@ -20,40 +20,48 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private final PasswordEncoder passwordEncoder;
-    private final MapperService mapperService;
-    private final MessageService messageService;
-    private final UserRepository userRepository;
 
-    public Page<UserDto> get(final GetUserDto dto) {
-        final var entities = userRepository.findAll(dto.getExample(User.class), dto.getPageable());
-        if (entities.isEmpty()) throw new NoSuchElementException();
-        return mapperService.map(entities, UserDto.class);
-    }
+	private final PasswordEncoder passwordEncoder;
 
-    public UserDto get(final UUID id) {
-        return mapperService.map(userRepository.findById(id).orElseThrow(), UserDto.class);
-    }
+	private final MapperService mapperService;
 
-    public UUID add(final AddUserDto dto) {
-        final var exists = userRepository.existsByEmailOrUsername(dto.getEmail(), dto.getUsername());
-        if (exists) throw new ApplicationException(HttpStatus.CONFLICT);
-        final var entity = mapperService.map(dto, User.class);
-        entity.setId(UUID.randomUUID());
-        entity.setPassword(passwordEncoder.encode(dto.getPassword()));
-        entity.setAuthorities(List.of(Authority.DEFAULT));
-        return userRepository.insert(entity).getId();
-    }
+	private final MessageService messageService;
 
-    public void update(final UpdateUserDto dto) {
-        final var exists = userRepository.existsByEmailOrUsername(dto.getId(), dto.getEmail(), dto.getUsername());
-        if (exists) throw new ApplicationException(HttpStatus.CONFLICT);
-        final var entity = mapperService.map(dto, User.class);
-        entity.setPassword(passwordEncoder.encode(dto.getPassword()));
-        userRepository.save(entity);
-    }
+	private final UserRepository userRepository;
 
-    public void delete(final UUID id) {
-        userRepository.deleteById(id);
-    }
+	public Page<UserDto> get(final GetUserDto dto) {
+		final var entities = userRepository.findAll(dto.getExample(User.class), dto.getPageable());
+		if (entities.isEmpty())
+			throw new NoSuchElementException();
+		return mapperService.map(entities, UserDto.class);
+	}
+
+	public UserDto get(final UUID id) {
+		return mapperService.map(userRepository.findById(id).orElseThrow(), UserDto.class);
+	}
+
+	public UUID add(final AddUserDto dto) {
+		final var exists = userRepository.existsByEmailOrUsername(dto.getEmail(), dto.getUsername());
+		if (exists)
+			throw new ApplicationException(HttpStatus.CONFLICT);
+		final var entity = mapperService.map(dto, User.class);
+		entity.setId(UUID.randomUUID());
+		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
+		entity.setAuthorities(List.of(Authority.DEFAULT));
+		return userRepository.insert(entity).getId();
+	}
+
+	public void update(final UpdateUserDto dto) {
+		final var exists = userRepository.existsByEmailOrUsername(dto.getId(), dto.getEmail(), dto.getUsername());
+		if (exists)
+			throw new ApplicationException(HttpStatus.CONFLICT);
+		final var entity = mapperService.map(dto, User.class);
+		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
+		userRepository.save(entity);
+	}
+
+	public void delete(final UUID id) {
+		userRepository.deleteById(id);
+	}
+
 }
