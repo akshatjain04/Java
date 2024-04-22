@@ -6,7 +6,11 @@ import lombok.Data;
 
 @Data
 public class ProductDto {
-    private UUID id;
-    private String description;
-    private BigDecimal price;
+
+	private UUID id;
+
+	private String description;
+
+	private BigDecimal price;
+
 }

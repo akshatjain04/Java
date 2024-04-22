@@ -15,18 +15,20 @@ import java.math.BigDecimal;
 @Data
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 public class InvoiceItem extends BaseEntity {
-    @NotNull
-    @Size(min = 1, max = 100)
-    private String product;
 
-    @NotNull
-    @Min(value = 1)
-    private BigDecimal quantity;
+	@NotNull
+	@Size(min = 1, max = 100)
+	private String product;
 
-    @NotNull
-    @DecimalMin(value = "0.01")
-    private BigDecimal unitPrice;
+	@NotNull
+	@Min(value = 1)
+	private BigDecimal quantity;
 
-    @ManyToOne
-    private Invoice invoice;
+	@NotNull
+	@DecimalMin(value = "0.01")
+	private BigDecimal unitPrice;
+
+	@ManyToOne
+	private Invoice invoice;
+
 }

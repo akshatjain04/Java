@@ -10,19 +10,21 @@ import org.testcontainers.containers.MongoDBContainer;
 
 @DataMongoTest
 public abstract class MongoTest {
-    @ServiceConnection
-    static final MongoDBContainer mongo = new MongoDBContainer("mongo");
 
-    @Autowired
-    protected MongoTemplate mongoTemplate;
+	@ServiceConnection
+	static final MongoDBContainer mongo = new MongoDBContainer("mongo");
 
-    @BeforeAll
-    static void beforeAll() {
-        mongo.start();
-    }
+	@Autowired
+	protected MongoTemplate mongoTemplate;
 
-    @BeforeEach
-    void beforeEach() {
-        mongoTemplate.getDb().drop();
-    }
+	@BeforeAll
+	static void beforeAll() {
+		mongo.start();
+	}
+
+	@BeforeEach
+	void beforeEach() {
+		mongoTemplate.getDb().drop();
+	}
+
 }
