@@ -7,9 +7,11 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public final class GetUserDto extends PageableDto {
-    private String name;
 
-    public GetUserDto() {
-        setSort("name");
-    }
+	private String name;
+
+	public GetUserDto() {
+		setSort("name");
+	}
+
 }
