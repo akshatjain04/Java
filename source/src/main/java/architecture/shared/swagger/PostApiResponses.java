@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 @BaseApiResponses
-@ApiResponses({
-    @ApiResponse(responseCode = "201"),
-    @ApiResponse(responseCode = "202", content = @Content),
-    @ApiResponse(responseCode = "204", content = @Content)
-})
+@ApiResponses({ @ApiResponse(responseCode = "201"), @ApiResponse(responseCode = "202", content = @Content),
+		@ApiResponse(responseCode = "204", content = @Content) })
 @ResponseStatus(HttpStatus.CREATED)
 public @interface PostApiResponses {
+
 }

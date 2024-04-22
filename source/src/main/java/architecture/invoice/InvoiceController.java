@@ -20,19 +20,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/invoices")
 public class InvoiceController {
-    private final InvoiceService invoiceService;
 
-    @Operation(summary = "Get")
-    @GetApiResponses
-    @GetMapping
-    public List<InvoiceDto> get() {
-        return invoiceService.get();
-    }
+	private final InvoiceService invoiceService;
 
-    @Operation(summary = "Add")
-    @PostApiResponses
-    @PostMapping
-    public InvoiceDto add(@RequestBody @Valid final AddInvoiceDto dto) {
-        return invoiceService.add(dto);
-    }
+	@Operation(summary = "Get")
+	@GetApiResponses
+	@GetMapping
+	public List<InvoiceDto> get() {
+		return invoiceService.get();
+	}
+
+	@Operation(summary = "Add")
+	@PostApiResponses
+	@PostMapping
+	public InvoiceDto add(@RequestBody @Valid final AddInvoiceDto dto) {
+		return invoiceService.add(dto);
+	}
+
 }
