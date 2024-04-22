@@ -10,9 +10,11 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class UpdatePriceProductDto {
-    @NotNull
-    private UUID id;
 
-    @Min(0L)
-    private BigDecimal price;
+	@NotNull
+	private UUID id;
+
+	@Min(0L)
+	private BigDecimal price;
+
 }
