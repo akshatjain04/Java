@@ -9,12 +9,14 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 class ProductRepositoryTest extends MongoTest {
-    @Autowired
-    ProductRepository productRepository;
 
-    @Test
-    void test() {
-        mongoTemplate.save(new Product(UUID.randomUUID(), "Ball", BigDecimal.valueOf(100)));
-        Assertions.assertFalse(productRepository.findAll().isEmpty());
-    }
+	@Autowired
+	ProductRepository productRepository;
+
+	@Test
+	void test() {
+		mongoTemplate.save(new Product(UUID.randomUUID(), "Ball", BigDecimal.valueOf(100)));
+		Assertions.assertFalse(productRepository.findAll().isEmpty());
+	}
+
 }
