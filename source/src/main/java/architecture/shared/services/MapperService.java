@@ -10,17 +10,20 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class MapperService {
-    private final ObjectMapper objectMapper;
 
-    public <U> U map(Object source, Class<U> destination) {
-        return objectMapper.convertValue(source, destination);
-    }
+	private final ObjectMapper objectMapper;
 
-    public <T, U> Page<U> map(Page<T> source, Class<U> destination) {
-        return new PageImpl<>(source.stream().map(item -> map(item, destination)).toList(), source.getPageable(), source.getTotalElements());
-    }
+	public <U> U map(Object source, Class<U> destination) {
+		return objectMapper.convertValue(source, destination);
+	}
 
-    public String json(Object value) throws JsonProcessingException {
-        return objectMapper.writeValueAsString(value);
-    }
+	public <T, U> Page<U> map(Page<T> source, Class<U> destination) {
+		return new PageImpl<>(source.stream().map(item -> map(item, destination)).toList(), source.getPageable(),
+				source.getTotalElements());
+	}
+
+	public String json(Object value) throws JsonProcessingException {
+		return objectMapper.writeValueAsString(value);
+	}
+
 }

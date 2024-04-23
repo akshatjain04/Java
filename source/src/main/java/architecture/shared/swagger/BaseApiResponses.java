@@ -10,14 +10,11 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.ANNOTATION_TYPE)
-@ApiResponses({
-    @ApiResponse(responseCode = "400", content = @Content),
-    @ApiResponse(responseCode = "401", content = @Content),
-    @ApiResponse(responseCode = "403", content = @Content),
-    @ApiResponse(responseCode = "404", content = @Content),
-    @ApiResponse(responseCode = "422", content = @Content),
-    @ApiResponse(responseCode = "500", content = @Content),
-    @ApiResponse(responseCode = "503", content = @Content)
-})
+@ApiResponses({ @ApiResponse(responseCode = "400", content = @Content),
+		@ApiResponse(responseCode = "401", content = @Content), @ApiResponse(responseCode = "403", content = @Content),
+		@ApiResponse(responseCode = "404", content = @Content), @ApiResponse(responseCode = "422", content = @Content),
+		@ApiResponse(responseCode = "500", content = @Content),
+		@ApiResponse(responseCode = "503", content = @Content) })
 public @interface BaseApiResponses {
+
 }
