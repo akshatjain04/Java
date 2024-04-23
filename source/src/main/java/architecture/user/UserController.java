@@ -31,41 +31,43 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    private final UserService userService;
 
-    @Operation(summary = "Get")
-    @GetApiResponses
-    @GetMapping
-    public Page<UserDto> get(@ParameterObject @ModelAttribute @Valid final GetUserDto dto) {
-        return userService.get(dto);
-    }
+	private final UserService userService;
 
-    @Operation(summary = "Get")
-    @GetApiResponses
-    @GetMapping("{id}")
-    public UserDto get(@PathVariable final UUID id) {
-        return userService.get(id);
-    }
+	@Operation(summary = "Get")
+	@GetApiResponses
+	@GetMapping
+	public Page<UserDto> get(@ParameterObject @ModelAttribute @Valid final GetUserDto dto) {
+		return userService.get(dto);
+	}
 
-    @Operation(summary = "Add")
-    @PostApiResponses
-    @PostMapping
-    public UUID add(@RequestBody @Valid final AddUserDto dto) {
-        return userService.add(dto);
-    }
+	@Operation(summary = "Get")
+	@GetApiResponses
+	@GetMapping("{id}")
+	public UserDto get(@PathVariable final UUID id) {
+		return userService.get(id);
+	}
 
-    @Operation(summary = "Update")
-    @DefaultApiResponses
-    @PutMapping("{id}")
-    public void update(@PathVariable final UUID id, @RequestBody @Valid final UpdateUserDto dto) {
-        dto.setId(id);
-        userService.update(dto);
-    }
+	@Operation(summary = "Add")
+	@PostApiResponses
+	@PostMapping
+	public UUID add(@RequestBody @Valid final AddUserDto dto) {
+		return userService.add(dto);
+	}
 
-    @Operation(summary = "Delete")
-    @DefaultApiResponses
-    @DeleteMapping("{id}")
-    public void delete(@PathVariable final UUID id) {
-        userService.delete(id);
-    }
+	@Operation(summary = "Update")
+	@DefaultApiResponses
+	@PutMapping("{id}")
+	public void update(@PathVariable final UUID id, @RequestBody @Valid final UpdateUserDto dto) {
+		dto.setId(id);
+		userService.update(dto);
+	}
+
+	@Operation(summary = "Delete")
+	@DefaultApiResponses
+	@DeleteMapping("{id}")
+	public void delete(@PathVariable final UUID id) {
+		userService.delete(id);
+	}
+
 }

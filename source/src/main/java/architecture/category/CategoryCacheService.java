@@ -13,18 +13,21 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class CategoryCacheService {
-    private static final String KEY = "Category";
-    private final CategoryRepository categoryRepository;
 
-    @Cacheable(KEY)
-    public List<Category> list() {
-        log.info("Cache -> Loading: %s".formatted(KEY));
-        return categoryRepository.list();
-    }
+	private static final String KEY = "Category";
 
-    @CacheEvict(allEntries = true, cacheNames = { KEY })
-    @Scheduled(fixedRateString = "1", timeUnit = TimeUnit.HOURS)
-    public void cacheEvict() {
-        log.info("Cache -> Cleaning: %s".formatted(KEY));
-    }
+	private final CategoryRepository categoryRepository;
+
+	@Cacheable(KEY)
+	public List<Category> list() {
+		log.info("Cache -> Loading: %s".formatted(KEY));
+		return categoryRepository.list();
+	}
+
+	@CacheEvict(allEntries = true, cacheNames = { KEY })
+	@Scheduled(fixedRateString = "1", timeUnit = TimeUnit.HOURS)
+	public void cacheEvict() {
+		log.info("Cache -> Cleaning: %s".formatted(KEY));
+	}
+
 }

@@ -25,35 +25,38 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/aws")
 public class AwsController {
-    private final AwsSqsService awsSqsService;
-    private final AwsS3Service awsS3Service;
 
-    @Value("${spring.cloud.aws.sqs.queue}")
-    private String queue;
+	private final AwsSqsService awsSqsService;
 
-    @Value("${spring.cloud.aws.s3.bucket}")
-    private String bucket;
+	private final AwsS3Service awsS3Service;
 
-    @Operation(summary = "Send")
-    @PostApiResponses
-    @PostMapping("queues/send")
-    public void send(@RequestBody final String message) {
-        awsSqsService.send(queue, message);
-    }
+	@Value("${spring.cloud.aws.sqs.queue}")
+	private String queue;
 
-    @Operation(summary = "Upload")
-    @PostApiResponses
-    @PostMapping(value = "files/upload", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-    public String upload(@RequestParam MultipartFile file) throws IOException {
-        return awsS3Service.upload(bucket, file).getFilename();
-    }
+	@Value("${spring.cloud.aws.s3.bucket}")
+	private String bucket;
 
-    @Operation(summary = "Download")
-    @GetApiResponses
-    @GetMapping("files/download/{key}")
-    public ResponseEntity<Resource> get(@PathVariable final String key) {
-        final var headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        return ResponseEntity.ok().headers(headers).body(awsS3Service.download(bucket, key));
-    }
+	@Operation(summary = "Send")
+	@PostApiResponses
+	@PostMapping("queues/send")
+	public void send(@RequestBody final String message) {
+		awsSqsService.send(queue, message);
+	}
+
+	@Operation(summary = "Upload")
+	@PostApiResponses
+	@PostMapping(value = "files/upload", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+	public String upload(@RequestParam MultipartFile file) throws IOException {
+		return awsS3Service.upload(bucket, file).getFilename();
+	}
+
+	@Operation(summary = "Download")
+	@GetApiResponses
+	@GetMapping("files/download/{key}")
+	public ResponseEntity<Resource> get(@PathVariable final String key) {
+		final var headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		return ResponseEntity.ok().headers(headers).body(awsS3Service.download(bucket, key));
+	}
+
 }
