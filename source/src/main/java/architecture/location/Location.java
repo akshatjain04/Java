@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 class Location {
-    private String code;
-    private String name;
+
+	private String code;
+
+	private String name;
+
 }
