@@ -9,12 +9,14 @@ import lombok.Data;
 
 @Data
 public class UpdateProductDto {
-    @Schema(hidden = true)
-    private UUID id;
 
-    @NotBlank
-    private String description;
+	@Schema(hidden = true)
+	private UUID id;
 
-    @Min(0L)
-    private BigDecimal price;
+	@NotBlank
+	private String description;
+
+	@Min(0L)
+	private BigDecimal price;
+
 }

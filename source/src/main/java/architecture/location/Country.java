@@ -8,5 +8,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Country extends Location {
-    private List<State> states = new ArrayList<>();
+
+	private List<State> states = new ArrayList<>();
+
 }
