@@ -11,14 +11,17 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class InvoiceService {
-    private final MapperService mapperService;
-    private final InvoiceRepository invoiceRepository;
 
-    public List<InvoiceDto> get() {
-        return invoiceRepository.findAll().stream().map(entity -> mapperService.map(entity, InvoiceDto.class)).toList();
-    }
+	private final MapperService mapperService;
 
-    public InvoiceDto add(final AddInvoiceDto dto) {
-        return mapperService.map(invoiceRepository.save(mapperService.map(dto, Invoice.class)), InvoiceDto.class);
-    }
+	private final InvoiceRepository invoiceRepository;
+
+	public List<InvoiceDto> get() {
+		return invoiceRepository.findAll().stream().map(entity -> mapperService.map(entity, InvoiceDto.class)).toList();
+	}
+
+	public InvoiceDto add(final AddInvoiceDto dto) {
+		return mapperService.map(invoiceRepository.save(mapperService.map(dto, Invoice.class)), InvoiceDto.class);
+	}
+
 }

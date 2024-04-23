@@ -7,11 +7,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(classes = { MessageService.class })
 class MessageServiceTest {
-    @Autowired
-    MessageService messageService;
 
-    @Test
-    void testGet() {
-        Assertions.assertEquals("Test", messageService.get("Test"));
-    }
+	@Autowired
+	MessageService messageService;
+
+	@Test
+	void testGet() {
+		Assertions.assertEquals("Test", messageService.get("Test"));
+	}
+
 }
