@@ -22,27 +22,36 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class AuthConfiguration {
-    private final AuthFilter authFilter;
 
-    @Bean
-    AuthenticationManager authenticationManager(final AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
+	private final AuthFilter authFilter;
 
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	AuthenticationManager authenticationManager(final AuthenticationConfiguration authenticationConfiguration)
+			throws Exception {
+		return authenticationConfiguration.getAuthenticationManager();
+	}
 
-    @Bean
-    SecurityFilterChain securityFilterChain(final HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity.csrf(AbstractHttpConfigurer::disable).addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class).authorizeHttpRequests(customizer()).build();
-    }
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-    static Customizer<AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry> customizer() {
-        return configuration -> configuration
-            .requestMatchers("/", "/actuator/**", "/v3/api-docs/**", "/swagger-ui/**", "/auth").permitAll()
-            .requestMatchers(HttpMethod.DELETE).hasAuthority(Authority.ADMINISTRATOR.name())
-            .anyRequest().authenticated();
-    }
+	@Bean
+	SecurityFilterChain securityFilterChain(final HttpSecurity httpSecurity) throws Exception {
+		return httpSecurity.csrf(AbstractHttpConfigurer::disable)
+			.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
+			.authorizeHttpRequests(customizer())
+			.build();
+	}
+
+	static Customizer<AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry> customizer() {
+		return configuration -> configuration
+			.requestMatchers("/", "/actuator/**", "/v3/api-docs/**", "/swagger-ui/**", "/auth")
+			.permitAll()
+			.requestMatchers(HttpMethod.DELETE)
+			.hasAuthority(Authority.ADMINISTRATOR.name())
+			.anyRequest()
+			.authenticated();
+	}
+
 }

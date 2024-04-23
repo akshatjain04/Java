@@ -18,12 +18,16 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Profile("!test")
 public class DatabaseRunner implements ApplicationRunner {
-    private final MongoTemplate mongoTemplate;
-    private final PasswordEncoder passwordEncoder;
 
-    public void run(final ApplicationArguments args) {
-        if (!mongoTemplate.collectionExists("user")) {
-            mongoTemplate.save(new User(UUID.randomUUID(), "Admin", "admin@mail.com", "admin", passwordEncoder.encode("123456"), List.of(Authority.ADMINISTRATOR)));
-        }
-    }
+	private final MongoTemplate mongoTemplate;
+
+	private final PasswordEncoder passwordEncoder;
+
+	public void run(final ApplicationArguments args) {
+		if (!mongoTemplate.collectionExists("user")) {
+			mongoTemplate.save(new User(UUID.randomUUID(), "Admin", "admin@mail.com", "admin",
+					passwordEncoder.encode("123456"), List.of(Authority.ADMINISTRATOR)));
+		}
+	}
+
 }

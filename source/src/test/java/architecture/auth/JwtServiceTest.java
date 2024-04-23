@@ -12,42 +12,46 @@ import org.springframework.security.core.authority.AuthorityUtils;
 
 @SpringBootTest(classes = JwtService.class)
 class JwtServiceTest {
-    @Autowired
-    JwtService jwtService;
 
-    @ParameterizedTest
-    @NullAndEmptySource
-    void testVerifyShouldAssertFalse(String token) {
-        Assertions.assertFalse(jwtService.verify(token));
-    }
+	@Autowired
+	JwtService jwtService;
 
-    @Test
-    void testVerifyShouldAssertFalse() {
-        Assertions.assertFalse(jwtService.verify(UUID.randomUUID().toString()));
-    }
+	@ParameterizedTest
+	@NullAndEmptySource
+	void testVerifyShouldAssertFalse(String token) {
+		Assertions.assertFalse(jwtService.verify(token));
+	}
 
-    @Test
-    void testVerifyShouldAssertTrue() {
-        Assertions.assertTrue(jwtService.verify(jwtService.create(Data.user)));
-    }
+	@Test
+	void testVerifyShouldAssertFalse() {
+		Assertions.assertFalse(jwtService.verify(UUID.randomUUID().toString()));
+	}
 
-    @Test
-    void testGetSubjectShouldAssertNotEquals() {
-        Assertions.assertNotEquals("Invalid", jwtService.getSubject(jwtService.create(Data.user)));
-    }
+	@Test
+	void testVerifyShouldAssertTrue() {
+		Assertions.assertTrue(jwtService.verify(jwtService.create(Data.user)));
+	}
 
-    @Test
-    void testGetSubjectShouldAssertNotNull() {
-        Assertions.assertNotNull(jwtService.getSubject(jwtService.create(Data.user)));
-    }
+	@Test
+	void testGetSubjectShouldAssertNotEquals() {
+		Assertions.assertNotEquals("Invalid", jwtService.getSubject(jwtService.create(Data.user)));
+	}
 
-    @Test
-    void testGetAuthoritiesShouldAssertNotEquals() {
-        Assertions.assertNotEquals(AuthorityUtils.createAuthorityList("Invalid"), jwtService.getAuthorities(jwtService.create(Data.user)));
-    }
+	@Test
+	void testGetSubjectShouldAssertNotNull() {
+		Assertions.assertNotNull(jwtService.getSubject(jwtService.create(Data.user)));
+	}
 
-    @Test
-    void testGetAuthoritiesShouldAssertEquals() {
-        Assertions.assertEquals(AuthorityUtils.createAuthorityList("ADMINISTRATOR"), jwtService.getAuthorities(jwtService.create(Data.user)));
-    }
+	@Test
+	void testGetAuthoritiesShouldAssertNotEquals() {
+		Assertions.assertNotEquals(AuthorityUtils.createAuthorityList("Invalid"),
+				jwtService.getAuthorities(jwtService.create(Data.user)));
+	}
+
+	@Test
+	void testGetAuthoritiesShouldAssertEquals() {
+		Assertions.assertEquals(AuthorityUtils.createAuthorityList("ADMINISTRATOR"),
+				jwtService.getAuthorities(jwtService.create(Data.user)));
+	}
+
 }
