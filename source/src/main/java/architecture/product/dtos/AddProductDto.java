@@ -7,9 +7,11 @@ import lombok.Data;
 
 @Data
 public class AddProductDto {
-    @NotBlank
-    private String description;
 
-    @Min(0L)
-    private BigDecimal price;
+	@NotBlank
+	private String description;
+
+	@Min(0L)
+	private BigDecimal price;
+
 }

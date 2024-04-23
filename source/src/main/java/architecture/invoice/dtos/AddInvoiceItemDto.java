@@ -9,15 +9,17 @@ import lombok.Data;
 
 @Data
 public class AddInvoiceItemDto {
-    @NotNull
-    @Size(min = 1, max = 100)
-    private String product;
 
-    @NotNull
-    @Min(value = 1)
-    private Integer quantity;
+	@NotNull
+	@Size(min = 1, max = 100)
+	private String product;
 
-    @NotNull
-    @DecimalMin(value = "0.01")
-    private BigDecimal unitPrice;
+	@NotNull
+	@Min(value = 1)
+	private Integer quantity;
+
+	@NotNull
+	@DecimalMin(value = "0.01")
+	private BigDecimal unitPrice;
+
 }
