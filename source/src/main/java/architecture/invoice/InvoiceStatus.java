@@ -1,5 +1,7 @@
 package architecture.invoice;
 
 public enum InvoiceStatus {
-    DRAFT, ISSUED, PAID, CANCELED
+
+	DRAFT, ISSUED, PAID, CANCELED
+
 }

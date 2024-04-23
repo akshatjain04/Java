@@ -8,19 +8,21 @@ import lombok.Data;
 
 @Data
 public class UpdateUserDto {
-    @Schema(hidden = true)
-    private UUID id;
 
-    @NotBlank
-    private String name;
+	@Schema(hidden = true)
+	private UUID id;
 
-    @NotBlank
-    @Email
-    private String email;
+	@NotBlank
+	private String name;
 
-    @NotBlank
-    private String username;
+	@NotBlank
+	@Email
+	private String email;
 
-    @NotBlank
-    private String password;
+	@NotBlank
+	private String username;
+
+	@NotBlank
+	private String password;
+
 }

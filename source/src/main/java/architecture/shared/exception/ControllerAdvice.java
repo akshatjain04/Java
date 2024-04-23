@@ -21,54 +21,56 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 @RestControllerAdvice
 public class ControllerAdvice {
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Void> handle(final Exception exception) {
-        log.error(exception.getMessage(), exception);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-    }
 
-    @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<Void> handle(final AccessDeniedException exception) {
-        log.error(exception.getMessage(), exception);
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-    }
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<Void> handle(final Exception exception) {
+		log.error(exception.getMessage(), exception);
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	}
 
-    @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<Void> handle(final NoSuchElementException exception) {
-        log.error(exception.getMessage(), exception);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-    }
+	@ExceptionHandler(AccessDeniedException.class)
+	public ResponseEntity<Void> handle(final AccessDeniedException exception) {
+		log.error(exception.getMessage(), exception);
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+	}
 
-    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ResponseEntity<Void> handle(MethodArgumentTypeMismatchException exception) {
-        log.error(exception.getMessage(), exception);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-    }
+	@ExceptionHandler(NoSuchElementException.class)
+	public ResponseEntity<Void> handle(final NoSuchElementException exception) {
+		log.error(exception.getMessage(), exception);
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	}
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<String> handle(final MethodArgumentNotValidException exception) {
-        log.error(exception.getMessage(), exception);
+	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
+	public ResponseEntity<Void> handle(MethodArgumentTypeMismatchException exception) {
+		log.error(exception.getMessage(), exception);
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+	}
 
-        final List<String> errors = new ArrayList<>();
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<String> handle(final MethodArgumentNotValidException exception) {
+		log.error(exception.getMessage(), exception);
 
-        for (final var error : exception.getBindingResult().getFieldErrors()) {
-            errors.add(error.getField() + ": " + error.getDefaultMessage());
-        }
+		final List<String> errors = new ArrayList<>();
 
-        for (final var error : exception.getBindingResult().getGlobalErrors()) {
-            errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
-        }
+		for (final var error : exception.getBindingResult().getFieldErrors()) {
+			errors.add(error.getField() + ": " + error.getDefaultMessage());
+		}
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.stream().sorted().toList().toString());
-    }
+		for (final var error : exception.getBindingResult().getGlobalErrors()) {
+			errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
+		}
 
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<String> handle(final HttpMessageNotReadableException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
-    }
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.stream().sorted().toList().toString());
+	}
 
-    @ExceptionHandler(ApplicationException.class)
-    public ResponseEntity<String> handle(final ApplicationException exception) {
-        return ResponseEntity.status(exception.getStatus()).body(exception.getMessage());
-    }
+	@ExceptionHandler(HttpMessageNotReadableException.class)
+	public ResponseEntity<String> handle(final HttpMessageNotReadableException exception) {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+	}
+
+	@ExceptionHandler(ApplicationException.class)
+	public ResponseEntity<String> handle(final ApplicationException exception) {
+		return ResponseEntity.status(exception.getStatus()).body(exception.getMessage());
+	}
+
 }
