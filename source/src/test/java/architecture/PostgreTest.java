@@ -13,14 +13,16 @@ import org.testcontainers.containers.PostgreSQLContainer;
 @DataJpaTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public abstract class PostgreTest {
-    @ServiceConnection
-    static final PostgreSQLContainer<?> postgre = new PostgreSQLContainer<>("postgres");
 
-    @BeforeAll
-    static void beforeAll() {
-        postgre.start();
-    }
+	@ServiceConnection
+	static final PostgreSQLContainer<?> postgre = new PostgreSQLContainer<>("postgres");
 
-    @Autowired
-    protected TestEntityManager testEntityManager;
+	@BeforeAll
+	static void beforeAll() {
+		postgre.start();
+	}
+
+	@Autowired
+	protected TestEntityManager testEntityManager;
+
 }

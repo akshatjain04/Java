@@ -11,16 +11,18 @@ import lombok.Data;
 
 @Data
 public class AddInvoiceDto {
-    @NotNull
-    @Size(min = 1, max = 50)
-    private String number;
 
-    @NotNull
-    private LocalDateTime dateTime;
+	@NotNull
+	@Size(min = 1, max = 50)
+	private String number;
 
-    @NotNull
-    private InvoiceStatus status;
+	@NotNull
+	private LocalDateTime dateTime;
 
-    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
-    private List<AddInvoiceItemDto> items;
+	@NotNull
+	private InvoiceStatus status;
+
+	@OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
+	private List<AddInvoiceItemDto> items;
+
 }
