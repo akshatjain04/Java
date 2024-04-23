@@ -7,16 +7,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(classes = { PaymentService.class, CreditCardPaymentStrategy.class, DebitCardPaymentStrategy.class })
 class PaymentServiceTest {
-    @Autowired
-    PaymentService paymentService;
 
-    @Test
-    void testProcessCreditCard() {
-        Assertions.assertEquals(PaymentMethod.CREDIT_CARD.name(), paymentService.process(PaymentMethod.CREDIT_CARD));
-    }
+	@Autowired
+	PaymentService paymentService;
 
-    @Test
-    void testProcessDebitCard() {
-        Assertions.assertEquals(PaymentMethod.DEBIT_CARD.name(), paymentService.process(PaymentMethod.DEBIT_CARD));
-    }
+	@Test
+	void testProcessCreditCard() {
+		Assertions.assertEquals(PaymentMethod.CREDIT_CARD.name(), paymentService.process(PaymentMethod.CREDIT_CARD));
+	}
+
+	@Test
+	void testProcessDebitCard() {
+		Assertions.assertEquals(PaymentMethod.DEBIT_CARD.name(), paymentService.process(PaymentMethod.DEBIT_CARD));
+	}
+
 }
