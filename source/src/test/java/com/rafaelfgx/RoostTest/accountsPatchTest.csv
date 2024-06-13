@@ -1,0 +1,12 @@
+RequestBody^|^statusCode
+{"email":"johndoe@example.com"}^|^200
+{"email":"janedoe@example.net"}^|^200
+{"email":"alice@example.org"}^|^4XX
+{"email":"bob@example.com"}^|^200
+{"email":"charlie@example.net"}^|^4XX
+{"email":"david@example.org"}^|^200
+{"email":"eve@example.com"}^|^200
+{"email":"frank@example.net"}^|^4XX
+{"e-mail":"grace@example.org"}^|^200
+{"email":"henry@example.com"}^|^200
+{"email":"isabel@example.net"}^|^4XX
